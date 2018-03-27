@@ -44,6 +44,67 @@
 	\newpage
 	\begin{enumerate}
 		\item %1
+		The board is represented by a flat 9-element NumPy tuple. 
+		Turn denotes whose turn it is (1 for X, 2 for O).
+		Done denotes whether the game is done (True if game is over, False otherwise.)
+		
+		Below is an example of a sample game played against myself.
+		\begin{verbatim}
+Python 2.7.14 |Anaconda custom (64-bit)| (default, Oct  5 2017, 02:28:52) 
+[GCC 4.2.1 Compatible Clang 4.0.1 (tags/RELEASE_401/final)] on darwin
+env.render()
+====
+env.step(0)
+Out[3]: (array([1, 0, 0, 0, 0, 0, 0, 0, 0]), 'valid', False)
+env.render()
+x..
+====
+env.step(4)
+Out[5]: (array([1, 0, 0, 0, 2, 0, 0, 0, 0]), 'valid', False)
+env.render()
+x..
+.o.
+====
+env.step(8)
+Out[7]: (array([1, 0, 0, 0, 2, 0, 0, 0, 1]), 'valid', False)
+env.render()
+x..
+.o.
+..x
+====
+env.step(2)
+Out[9]: (array([1, 0, 2, 0, 2, 0, 0, 0, 1]), 'valid', False)
+env.render()
+x.o
+.o.
+..x
+====
+env.step(6)
+Out[11]: (array([1, 0, 2, 0, 2, 0, 1, 0, 1]), 'valid', False)
+env.render()
+x.o
+.o.
+x.x
+====
+env.step(3)
+Out[13]: (array([1, 0, 2, 2, 2, 0, 1, 0, 1]), 'valid', False)
+env.render()
+x.o
+oo.
+x.x
+====
+env.step(7)
+Out[15]: (array([1, 0, 2, 2, 2, 0, 1, 1, 1]), 'win', True)
+env.render()
+x.o
+oo.
+xxx
+====
+env.done
+Out[17]: True
+env.step(1)
+Out[18]: (array([1, 0, 2, 2, 2, 0, 1, 1, 1]), 'done', True)
+		\end{verbatim}
 		\item %2
 		\begin{enumerate}
 			\item %2a
