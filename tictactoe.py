@@ -104,11 +104,13 @@ class Policy(nn.Module):
     """
     def __init__(self, input_size=27, hidden_size=64, output_size=9):
         super(Policy, self).__init__()
-        # TODO
+        
+        self.linear1 = nn.Linear(input_size, hidden_size)
+        self.linear2 = nn.Linear(hidden_size, output_size)
 
     def forward(self, x):
-        # TODO
-        return 0
+        x = F.relu(self.linear1(x))
+        return F.relu(self.linear2(x))
 
 def select_action(policy, state):
     """Samples an action from the policy at the state."""

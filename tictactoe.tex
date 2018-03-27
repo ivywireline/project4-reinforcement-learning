@@ -108,6 +108,22 @@ Out[18]: (array([1, 0, 2, 2, 2, 0, 1, 1, 1]), 'done', True)
 		\item %2
 		\begin{enumerate}
 			\item %2a
+			The following is the new implemented policy
+\begin{lstlisting}
+class Policy(nn.Module):
+    """
+    The Tic-Tac-Toe Policy
+    """
+    def __init__(self, input_size=27, hidden_size=64, output_size=9):
+        super(Policy, self).__init__()
+
+        self.linear1 = nn.Linear(input_size, hidden_size)
+        self.linear2 = nn.Linear(hidden_size, output_size)
+
+    def forward(self, x):
+        x = F.relu(self.linear1(x))
+        return F.relu(self.linear2(x))
+\end{lstlisting}
 			\item %2b
 			\item %2c
 		\end{enumerate}
