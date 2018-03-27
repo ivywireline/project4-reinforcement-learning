@@ -125,6 +125,15 @@ class Policy(nn.Module):
         return F.relu(self.linear2(x))
 \end{lstlisting}
 			\item %2b
+			The 27 dimensions are a flattened encoding of a one-hot encoding of the state of the board.
+			If \verb|.view(3,9)| is applied to the array, the columns would be the one-hot encoding of each cell in the board.
+			
+			If a column contains ``1 0 0,'' the cell is empty.\\
+			If a column contains ``0 1 0,'' the cell is occupied by an X.\\
+			If a column contains ``0 0 1,'' the cell is occupied by an O.
+			%The function first creates a one-hot encoding of the state at each cell of the board, flattens it, then passes it into the Policy neural network.
+			%The function then samples a state from the output of the network, and calculates the loss function (in this case, log probability).
+			%The function then returns the chosen move (i.e. chosen next state) with its corresponding loss value.
 			\item %2c
 		\end{enumerate}
 		\item %3
