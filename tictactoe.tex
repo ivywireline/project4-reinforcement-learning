@@ -126,7 +126,7 @@ class Policy(nn.Module):
 \end{lstlisting}
 			\item %2b
 			The 27 dimensions are a flattened encoding of a one-hot encoding of the state of the board.
-			If \verb|.view(3,9)| is applied to the array, the columns would be the one-hot encoding of each cell in the board.
+			If \verb|.view(3,9)| is applied to the array, the columns would be the one-hot encoding of each cell in the board (starting from the top left, going across each row, and ending in the bottom right).
 			
 			If a column contains ``1 0 0,'' the cell is empty.\\
 			If a column contains ``0 1 0,'' the cell is occupied by an X.\\
@@ -135,6 +135,8 @@ class Policy(nn.Module):
 			%The function then samples a state from the output of the network, and calculates the loss function (in this case, log probability).
 			%The function then returns the chosen move (i.e. chosen next state) with its corresponding loss value.
 			\item %2c
+			The value in each dimension means the chance that making the move (e.g. adding an X into that cell) would result in winning the game.
+			% TODO: Is this policy stochastic or deterministic?
 		\end{enumerate}
 		\item %3
 		\begin{enumerate}
