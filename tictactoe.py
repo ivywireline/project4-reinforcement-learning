@@ -254,12 +254,14 @@ def plot_learning_curve(learning_data, filename="Part5LearningCurve"):
 
 if __name__ == '__main__':
     import sys
+    random.seed(0)
+    np.random.seed(0)
     policy = Policy()
     env = Environment()
 
     if len(sys.argv) == 1:
         # `python tictactoe.py` to train the agent
-        plot_result_dict = train(policy, env, gamma=0.7)
+        plot_result_dict = train(policy, env, gamma=0.9)
         plot_learning_curve(plot_result_dict)
     else:
         # `python tictactoe.py <ep>` to print the first move distribution
