@@ -1,7 +1,8 @@
 from __future__ import print_function, division
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 from itertools import count
 import numpy as np
+import matplotlib.pyplot as plt
 import math
 import random
 import torch
@@ -181,6 +182,7 @@ def train(policy, env, gamma=1.0, log_interval=1000):
     scheduler = torch.optim.lr_scheduler.StepLR(
             optimizer, step_size=10000, gamma=0.9)
     running_reward = 0
+    plot_result_dict = OrderedDict()
 
     for i_episode in count(1):
         if i_episode > 50000:
@@ -205,6 +207,7 @@ def train(policy, env, gamma=1.0, log_interval=1000):
             print('Episode {}\tAverage return: {:.2f}'.format(
                 i_episode,
                 running_reward / log_interval))
+            plot_result_dict[i_episode] = running_reward / log_interval
             running_reward = 0
 
         if i_episode % (log_interval) == 0:
@@ -215,6 +218,7 @@ def train(policy, env, gamma=1.0, log_interval=1000):
             optimizer.step()
             scheduler.step()
             optimizer.zero_grad()
+    return plot_result_dict
 
 
 def first_move_distr(policy, env):
@@ -232,6 +236,22 @@ def load_weights(policy, episode):
     policy.load_state_dict(weights)
 
 
+def plot_learning_curve(learning_data, filename="Part5LearningCurve"):
+
+    x_axis = learning_data.keys()
+    y_axis = [learning_data[i] for i in x_axis]
+
+    fig = plt.figure()
+    plt.plot(x_axis, y_axis, label="Average return")
+
+    plt.xlabel("Episodes")
+    plt.ylabel("Average Return")
+    plt.title("Learning Curves of Average Return vs Episodes")
+    plt.legend(loc="best")
+
+    if filename:
+        plt.savefig(filename)
+
 if __name__ == '__main__':
     import sys
     policy = Policy()
@@ -239,7 +259,8 @@ if __name__ == '__main__':
 
     if len(sys.argv) == 1:
         # `python tictactoe.py` to train the agent
-        train(policy, env)
+        plot_result_dict = train(policy, env)
+        plot_learning_curve(plot_result_dict)
     else:
         # `python tictactoe.py <ep>` to print the first move distribution
         # using weightt checkpoint at episode int(<ep>)
