@@ -183,15 +183,21 @@ def get_reward(status):
     return {
         Environment.STATUS_VALID_MOVE  : 0,
         Environment.STATUS_INVALID_MOVE: -99,
-        Environment.STATUS_WIN         : 2,
-        Environment.STATUS_TIE         : 1,
+        Environment.STATUS_WIN         : 1,
+        Environment.STATUS_TIE         : 0,
         Environment.STATUS_LOSE        : -1
     }[status]
 			\end{lstlisting}
 			\item %4b
 			%Explain the choices that you made in 4(a). Are there positive rewards? Negative rewards? Zero rewards? Why? Explain how you chose the magnitude of the positive and negative rewards.
-			The reward for a valid move is 0, since a single valid move doesn't directly contribute to a win or a loss.
-			
+			The reward for a valid move is $0$, since a single valid move doesn't directly contribute to a win or a loss.
+			The reward for an invalid move is $-99$, since we really don't want our neural network to try invalid moves.
+			Making invalid moves is worse than losing the game. 
+			The reward for a win is $2$, and that's because we want to encourage our neural network to optimize for wins.
+			The reward for a tie is $1$, and that is because we want to encourage the neural network to finish the game, but we don't want the neural network to choose this option over a win.
+			The reward for a loss is $-1$, since we want to discourage losses.
+			The magnitude of these rewards are mostly close to zero, except for invalid moves.
+			This is because all of the regular states are states that could occur in regular play, and since we really want to discourage invalid moves, having the rest of the rewards close together makes the $-99$ penalty more meaningful.
 		\end{enumerate}
 		\item %5
 		\begin{enumerate}
