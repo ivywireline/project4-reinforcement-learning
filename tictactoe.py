@@ -170,7 +170,7 @@ def get_reward(status):
     """Returns a numeric given an environment status."""
     return {
             Environment.STATUS_VALID_MOVE  : 0, # TODO
-            Environment.STATUS_INVALID_MOVE: -999,
+            Environment.STATUS_INVALID_MOVE: -99,
             Environment.STATUS_WIN         : 2,
             Environment.STATUS_TIE         : 1,
             Environment.STATUS_LOSE        : -1
@@ -259,7 +259,7 @@ if __name__ == '__main__':
 
     if len(sys.argv) == 1:
         # `python tictactoe.py` to train the agent
-        plot_result_dict = train(policy, env)
+        plot_result_dict = train(policy, env, gamma=0.7)
         plot_learning_curve(plot_result_dict)
     else:
         # `python tictactoe.py <ep>` to print the first move distribution
