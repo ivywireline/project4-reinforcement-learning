@@ -140,15 +140,13 @@ def compute_returns(rewards, gamma=1.0):
     """
     # TODO
     result = []
-    index = 0
-    for reward in rewards:
+    for index in range(len(rewards)):
         sum_returns = 0
         power = 0
         for i in range(index, len(rewards)):
-            sum_returns = sum_returns + ( (gamma ** power) * rewards[i] )
+            sum_returns = sum_returns + ((gamma ** power) * rewards[i])
             power = power + 1
         result.append(sum_returns)
-        index = index + 1
     return result
 
 def finish_episode(saved_rewards, saved_logprobs, gamma=1.0):
