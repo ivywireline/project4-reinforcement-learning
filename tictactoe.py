@@ -170,10 +170,10 @@ def get_reward(status):
     """Returns a numeric given an environment status."""
     return {
             Environment.STATUS_VALID_MOVE  : 0, # TODO
-            Environment.STATUS_INVALID_MOVE: 0,
-            Environment.STATUS_WIN         : 0,
-            Environment.STATUS_TIE         : 0,
-            Environment.STATUS_LOSE        : 0
+            Environment.STATUS_INVALID_MOVE: -99,
+            Environment.STATUS_WIN         : 2,
+            Environment.STATUS_TIE         : 1,
+            Environment.STATUS_LOSE        : -1
     }[status]
 
 def train(policy, env, gamma=1.0, log_interval=1000):
