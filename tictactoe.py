@@ -111,7 +111,7 @@ class Policy(nn.Module):
     def forward(self, x):
         x = F.relu(self.linear1(x))
         x = self.linear2(x)
-        return F.log_softmax(x)
+        return F.softmax(x, dim=1)
 
 def select_action(policy, state):
     """Samples an action from the policy at the state."""
@@ -169,7 +169,7 @@ def get_reward(status):
     """Returns a numeric given an environment status."""
     return {
             Environment.STATUS_VALID_MOVE  : 0, # TODO
-            Environment.STATUS_INVALID_MOVE: -99,
+            Environment.STATUS_INVALID_MOVE: -999,
             Environment.STATUS_WIN         : 2,
             Environment.STATUS_TIE         : 1,
             Environment.STATUS_LOSE        : -1
@@ -183,6 +183,8 @@ def train(policy, env, gamma=1.0, log_interval=1000):
     running_reward = 0
 
     for i_episode in count(1):
+        if i_episode > 50000:
+            break
         saved_rewards = []
         saved_logprobs = []
         state = env.reset()
