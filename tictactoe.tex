@@ -122,7 +122,8 @@ class Policy(nn.Module):
 
     def forward(self, x):
         x = F.relu(self.linear1(x))
-        return F.relu(self.linear2(x))
+        x = self.linear2(x)
+        return F.log_softmax(x)
 \end{lstlisting}
 			\item %2b
 			The 27 dimensions are a flattened encoding of a one-hot encoding of the state of the board.
@@ -176,7 +177,21 @@ def compute_returns(rewards, gamma=1.0):
 		\item %4
 		\begin{enumerate}
 			\item %4a
+			\begin{lstlisting}
+def get_reward(status):
+    """Returns a numeric given an environment status."""
+    return {
+        Environment.STATUS_VALID_MOVE  : 0,
+        Environment.STATUS_INVALID_MOVE: -99,
+        Environment.STATUS_WIN         : 2,
+        Environment.STATUS_TIE         : 1,
+        Environment.STATUS_LOSE        : -1
+    }[status]
+			\end{lstlisting}
 			\item %4b
+			%Explain the choices that you made in 4(a). Are there positive rewards? Negative rewards? Zero rewards? Why? Explain how you chose the magnitude of the positive and negative rewards.
+			The reward for a valid move is 0, since a single valid move doesn't directly contribute to a win or a loss.
+			
 		\end{enumerate}
 		\item %5
 		\begin{enumerate}

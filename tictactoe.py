@@ -110,7 +110,8 @@ class Policy(nn.Module):
 
     def forward(self, x):
         x = F.relu(self.linear1(x))
-        return F.relu(self.linear2(x))
+        x = self.linear2(x)
+        return F.log_softmax(x)
 
 def select_action(policy, state):
     """Samples an action from the policy at the state."""
