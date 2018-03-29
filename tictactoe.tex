@@ -159,6 +159,7 @@ def compute_returns(rewards, gamma=1.0):
     >>> compute_returns([0,-0.5,5,0.5,-10], 0.9)
     [-2.5965000000000003, -2.8850000000000002, -2.6500000000000004, -8.5, -10.0]
     """
+    # TODO
     result = []
     for index in range(len(rewards)):
         sum_returns = 0
@@ -170,6 +171,7 @@ def compute_returns(rewards, gamma=1.0):
     return result
 			\end{lstlisting}
 			\item %3b
+			If we update the weights in the middle of an episode, it would lead to erroneous results since the algorithm does not know the terminal state of the episode when it's updating the weights. For instance, if the terminal state for an agent is "loss", then this will cancel out all the rewards that are associating with the agent's previous actions in the episode. Therefore, we should not update the weights in the middle of an episode.
 		\end{enumerate}
 		\item %4
 		\begin{enumerate}
