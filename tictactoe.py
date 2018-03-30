@@ -182,9 +182,11 @@ def train(policy, env, gamma=1.0, log_interval=1000):
     scheduler = torch.optim.lr_scheduler.StepLR(
             optimizer, step_size=10000, gamma=0.9)
     running_reward = 0
-    plot_result_dict = OrderedDict()
+    performance_data = OrderedDict()
+    invalid_moves_episode = []
 
     for i_episode in count(1):
+        num_invalid_moves = 0
         if i_episode > 50000:
             break
         saved_rewards = []
@@ -194,6 +196,8 @@ def train(policy, env, gamma=1.0, log_interval=1000):
         while not done:
             action, logprob = select_action(policy, state)
             state, status, done = env.play_against_random(action)
+            if status == Environment.STATUS_INVALID_MOVE:
+                num_invalid_moves += 1
             reward = get_reward(status)
             saved_logprobs.append(logprob)
             saved_rewards.append(reward)
@@ -203,11 +207,13 @@ def train(policy, env, gamma=1.0, log_interval=1000):
 
         finish_episode(saved_rewards, saved_logprobs, gamma)
 
+        invalid_moves_episode.append(num_invalid_moves)
+
         if i_episode % log_interval == 0:
             print('Episode {}\tAverage return: {:.2f}'.format(
                 i_episode,
                 running_reward / log_interval))
-            plot_result_dict[i_episode] = running_reward / log_interval
+            performance_data[i_episode] = running_reward / log_interval
             running_reward = 0
 
         if i_episode % (log_interval) == 0:
@@ -218,7 +224,10 @@ def train(policy, env, gamma=1.0, log_interval=1000):
             optimizer.step()
             scheduler.step()
             optimizer.zero_grad()
-    return plot_result_dict
+    return {
+        'invalid_moves_episode': invalid_moves_episode,
+        'performance_data': performance_data,
+    }
 
 
 def first_move_distr(policy, env):
@@ -263,8 +272,9 @@ if __name__ == '__main__':
 
     if len(sys.argv) == 1:
         # `python tictactoe.py` to train the agent
-        plot_result_dict = train(policy, env, gamma=0.9)
-        plot_learning_curve(plot_result_dict)
+        train_summary = train(policy, env, gamma=0.9)
+        plot_learning_curve(train_summary['performance_data'])
+        invalid_moves_per_1k = [sum(train_summary['invalid_moves_episode'][i * 1000:(i + 1000) * 1000]) for i in range(50000 / 1000)]
     else:
         # `python tictactoe.py <ep>` to print the first move distribution
         # using weightt checkpoint at episode int(<ep>)
