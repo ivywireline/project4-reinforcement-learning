@@ -214,7 +214,30 @@ def get_reward(status):
 			\end{figure}
 
 			\item %5b
-			I have tuned the hyper-parameter number of hidden units by the following 3 values: 128, 32, 80. I have used the average return value at the last episode for performance metrics because this value reflects how well the trained model performs when it is being used to play against AI or human players. The average return values for the 3 tests are as follows: \newline
+			I have tuned the hyper-parameter number of hidden units by the following 3 values: 128, 32, 80. I have used the average return value at the last episode for performance metrics because this value reflects how well the trained model performs when it is being used to play against AI or human players. The learning curves of the 3 tests are shown below.
+
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\linewidth]{Part5BLearningCurve_128.png}
+				\caption{Learning Curve with 128 hidden units}
+				\label{fig:part5b_128}
+			\end{figure}
+
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\linewidth]{Part5BLearningCurve_32.png}
+				\caption{Learning Curve with 32 hidden units}
+				\label{fig:part5b_32}
+			\end{figure}
+
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\linewidth]{Part5BLearningCurve_80.png}
+				\caption{Learning Curve with 80 hidden units}
+				\label{fig:part5b_80}
+			\end{figure}
+
+			The average return values for the 3 tests are as follows: \newline
 
 			\textbf{128 Hidden Units}: 1.62          \newline
 			\textbf{32 Hidden Units}: 1.41           \newline

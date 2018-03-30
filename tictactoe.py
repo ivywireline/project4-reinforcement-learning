@@ -322,8 +322,9 @@ if __name__ == '__main__':
         plot_learning_curve(train_summary['performance_data'])
         invalid_moves_per_1k = [sum(train_summary['invalid_moves_episode'][i * 1000:(i + 1000) * 1000]) for i in range(int(50000 / 1000))]
 
-        # Part 5b
-        part5b()
+        # Uncomment this like to see the tuning of the number of hidden units hyperparameter
+        # in part 5 b)
+        # part5b()
     else:
         # `python tictactoe.py <ep>` to print the first move distribution
         # using weightt checkpoint at episode int(<ep>)
@@ -334,4 +335,3 @@ if __name__ == '__main__':
         # Part5d
         wins, ties, losses = play_games_against_random(policy, env)
         print("Wins: {}%\tTies: {}\tLosses: {}".format(wins, ties, losses))
-
