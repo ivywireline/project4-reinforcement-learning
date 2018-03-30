@@ -265,19 +265,19 @@ def plot_learning_curve(learning_data, filename="Part5LearningCurve"):
 def part5b():
     new_policy = Policy(hidden_size=128)
     new_env = Environment()
-    new_plot_result_dict = train(new_policy, new_env, gamma=0.9)
-    plot_learning_curve(new_plot_result_dict, "Part5BLearningCurve_128")
+    new_train_summary = train(new_policy, new_env, gamma=0.9)
+    plot_learning_curve(new_train_summary['performance_data'], "Part5BLearningCurve_128")
 
 
     new_policy = Policy(hidden_size=32)
     new_env = Environment()
-    new_plot_result_dict = train(new_policy, new_env, gamma=0.9)
-    plot_learning_curve(new_plot_result_dict, "Part5BLearningCurve_32")
+    new_train_summary = train(new_policy, new_env, gamma=0.9)
+    plot_learning_curve(new_train_summary['performance_data'], "Part5BLearningCurve_32")
 
     new_policy = Policy(hidden_size=80)
     new_env = Environment()
-    new_plot_result_dict = train(new_policy, new_env, gamma=0.9)
-    plot_learning_curve(new_plot_result_dict, "Part5BLearningCurve_80")
+    new_train_summary = train(new_policy, new_env, gamma=0.9)
+    plot_learning_curve(new_train_summary['performance_data'], "Part5BLearningCurve_80")
 
 
 if __name__ == '__main__':
