@@ -192,7 +192,7 @@ def get_reward(status):
 			%Explain the choices that you made in 4(a). Are there positive rewards? Negative rewards? Zero rewards? Why? Explain how you chose the magnitude of the positive and negative rewards.
 			The reward for a valid move is $0$, since a single valid move doesn't directly contribute to a win or a loss.
 			The reward for an invalid move is $-99$, since we really don't want our neural network to try invalid moves.
-			Making invalid moves is worse than losing the game. 
+			Making invalid moves is worse than losing the game.
 			The reward for a win is $2$, and that's because we want to encourage our neural network to optimize for wins.
 			The reward for a tie is $1$, and that is because we want to encourage the neural network to finish the game, but we don't want the neural network to choose this option over a win.
 			The reward for a loss is $-1$, since we want to discourage losses.
@@ -202,7 +202,7 @@ def get_reward(status):
 		\item %5
 		\begin{enumerate}
 			\item %5a
-			The hyperparameter we tweaked was the  $\gamma$ value (discount factor) in order to improve the performance of the model, since a lower $\gamma$ value would help the model prioritize shorter paths to win, which is a strong strategy when it comes to playing tic tac toe. 
+			The hyperparameter we tweaked was the  $\gamma$ value (discount factor) in order to improve the performance of the model, since a lower $\gamma$ value would help the model prioritize shorter paths to win, which is a strong strategy when it comes to playing tic tac toe.
 			Longer strategies would give the opponent more of an opportunity to disrupt the strategy, or even win in the shorter term before the strategy can complete.
 			\\
 			The learning curve given the above rewards and the tweaked $\gamma$ value is in Figure \ref{fig:part5alearningcurve}
@@ -212,8 +212,15 @@ def get_reward(status):
 				\caption{Initial Learning Curve}
 				\label{fig:part5alearningcurve}
 			\end{figure}
-			
+
 			\item %5b
+			I have tuned the hyper-parameter number of hidden units by the following 3 values: 128, 32, 80. I have used the average return value at the last episode for performance metrics because this value reflects how well the trained model performs when it is being used to play against AI or human players. The average return values for the 3 tests are as follows: \newline
+
+			\textbf{128 Hidden Units}: 1.62          \newline
+			\textbf{32 Hidden Units}: 1.41           \newline
+			\textbf{80 Hidden Units}: 1.91           \newline
+
+			From testing, the algorithm with 80 hidden units has the best performance.
 			\item %5c
 			\item %5d
 		\end{enumerate}
