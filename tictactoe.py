@@ -280,6 +280,33 @@ def part5b():
     plot_learning_curve(new_plot_result_dict, "Part5BLearningCurve_80")
 
 
+
+def play_games_against_random(policy, env, num_games=100):
+    wins = 0
+    ties = 0
+    losses = 0
+    for i in range(num_games):
+        # print("Playing game", i+1)
+        done = False
+        num_invalid_moves = 0
+        state = env.reset()
+        while not done:
+            action, logprob = select_action(policy, state)
+            state, status, done = env.play_against_random(action)
+            if status == Environment.STATUS_INVALID_MOVE:
+                num_invalid_moves += 1
+
+        if status == Environment.STATUS_WIN:
+            wins += 1
+        elif status == Environment.STATUS_TIE:
+            ties += 1
+        elif status == Environment.STATUS_LOSE:
+            losses += 1
+        else:
+            print("Something has gone terribly wrong")
+    return wins, ties, losses
+
+
 if __name__ == '__main__':
     import sys
     random.seed(0)
@@ -293,7 +320,10 @@ if __name__ == '__main__':
         # `python tictactoe.py` to train the agent
         train_summary = train(policy, env, gamma=0.9)
         plot_learning_curve(train_summary['performance_data'])
-        invalid_moves_per_1k = [sum(train_summary['invalid_moves_episode'][i * 1000:(i + 1000) * 1000]) for i in range(50000 / 1000)]
+        invalid_moves_per_1k = [sum(train_summary['invalid_moves_episode'][i * 1000:(i + 1000) * 1000]) for i in range(int(50000 / 1000))]
+
+        # Part 5b
+        part5b()
     else:
         # `python tictactoe.py <ep>` to print the first move distribution
         # using weightt checkpoint at episode int(<ep>)
@@ -301,5 +331,7 @@ if __name__ == '__main__':
         load_weights(policy, ep)
         print(first_move_distr(policy, env))
 
-    # Part 5
-    part5b()
+        # Part5d
+        wins, ties, losses = play_games_against_random(policy, env)
+        print("Wins: {}%\tTies: {}\tLosses: {}".format(wins, ties, losses))
+
