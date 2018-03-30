@@ -271,9 +271,6 @@ if __name__ == '__main__':
     # env = Environment()
     #
     # if len(sys.argv) == 1:
-    #     # `python tictactoe.py` to train the agent
-    #     plot_result_dict = train(policy, env, gamma=0.9)
-    #     plot_learning_curve(plot_result_dict)
         # # `python tictactoe.py` to train the agent
         # train_summary = train(policy, env, gamma=0.9)
         # plot_learning_curve(train_summary['performance_data'])
