@@ -202,10 +202,14 @@ def get_reward(status):
 		\item %5
 		\begin{enumerate}
 			\item %5a
+			The hyperparameter we tweaked was the  $\gamma$ value (discount factor) in order to improve the performance of the model, since a lower $\gamma$ value would help the model prioritize shorter paths to win, which is a strong strategy when it comes to playing tic tac toe. 
+			Longer strategies would give the opponent more of an opportunity to disrupt the strategy, or even win in the shorter term before the strategy can complete.
+			\\
+			The learning curve given the above rewards and the tweaked $\gamma$ value is in Figure \ref{fig:part5alearningcurve}
 			\begin{figure}[H]
 				\centering
 				\includegraphics[width=0.7\linewidth]{Part5aLearningCurve}
-				\caption{}
+				\caption{Initial Learning Curve}
 				\label{fig:part5alearningcurve}
 			\end{figure}
 			
