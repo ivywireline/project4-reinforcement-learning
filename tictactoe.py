@@ -261,65 +261,45 @@ def plot_learning_curve(learning_data, filename="Part5LearningCurve"):
     if filename:
         plt.savefig(filename)
 
+
+def part5b():
+    new_policy = Policy(hidden_size=128)
+    new_env = Environment()
+    new_plot_result_dict = train(new_policy, new_env, gamma=0.9)
+    plot_learning_curve(new_plot_result_dict, "Part5BLearningCurve_128")
+
+
+    new_policy = Policy(hidden_size=32)
+    new_env = Environment()
+    new_plot_result_dict = train(new_policy, new_env, gamma=0.9)
+    plot_learning_curve(new_plot_result_dict, "Part5BLearningCurve_32")
+
+    new_policy = Policy(hidden_size=80)
+    new_env = Environment()
+    new_plot_result_dict = train(new_policy, new_env, gamma=0.9)
+    plot_learning_curve(new_plot_result_dict, "Part5BLearningCurve_80")
+
+
 if __name__ == '__main__':
     import sys
     random.seed(0)
     np.random.seed(0)
     torch.manual_seed(0)
 
-    # policy = Policy()
-    # env = Environment()
-    #
-    # if len(sys.argv) == 1:
-        # # `python tictactoe.py` to train the agent
-        # train_summary = train(policy, env, gamma=0.9)
-        # plot_learning_curve(train_summary['performance_data'])
-        # invalid_moves_per_1k = [sum(train_summary['invalid_moves_episode'][i * 1000:(i + 1000) * 1000]) for i in range(50000 / 1000)]
-    # else:
-    #     # `python tictactoe.py <ep>` to print the first move distribution
-    #     # using weightt checkpoint at episode int(<ep>)
-    #     ep = int(sys.argv[1])
-    #     load_weights(policy, ep)
-    #     print(first_move_distr(policy, env))
+    policy = Policy()
+    env = Environment()
+
+    if len(sys.argv) == 1:
+        # `python tictactoe.py` to train the agent
+        train_summary = train(policy, env, gamma=0.9)
+        plot_learning_curve(train_summary['performance_data'])
+        invalid_moves_per_1k = [sum(train_summary['invalid_moves_episode'][i * 1000:(i + 1000) * 1000]) for i in range(50000 / 1000)]
+    else:
+        # `python tictactoe.py <ep>` to print the first move distribution
+        # using weightt checkpoint at episode int(<ep>)
+        ep = int(sys.argv[1])
+        load_weights(policy, ep)
+        print(first_move_distr(policy, env))
 
     # Part 5
-
-    new_policy = Policy(hidden_size=128)
-    new_env = Environment()
-
-    if len(sys.argv) == 1:
-        new_plot_result_dict = train(new_policy, new_env, gamma=0.9)
-        plot_learning_curve(new_plot_result_dict, "Part5BLearningCurve_128")
-    else:
-        # `python tictactoe.py <ep>` to print the first move distribution
-        # using weightt checkpoint at episode int(<ep>)
-        ep = int(sys.argv[1])
-        load_weights(new_policy, ep)
-        print(first_move_distr(new_policy, new_env))
-
-
-    new_policy = Policy(hidden_size=32)
-    new_env = Environment()
-
-    if len(sys.argv) == 1:
-        new_plot_result_dict = train(new_policy, new_env, gamma=0.9)
-        plot_learning_curve(new_plot_result_dict, "Part5BLearningCurve_32")
-    else:
-        # `python tictactoe.py <ep>` to print the first move distribution
-        # using weightt checkpoint at episode int(<ep>)
-        ep = int(sys.argv[1])
-        load_weights(new_policy, ep)
-        print(first_move_distr(new_policy, new_env))
-
-    new_policy = Policy(hidden_size=80)
-    new_env = Environment()
-
-    if len(sys.argv) == 1:
-        new_plot_result_dict = train(new_policy, new_env, gamma=0.9)
-        plot_learning_curve(new_plot_result_dict, "Part5BLearningCurve_80")
-    else:
-        # `python tictactoe.py <ep>` to print the first move distribution
-        # using weightt checkpoint at episode int(<ep>)
-        ep = int(sys.argv[1])
-        load_weights(new_policy, ep)
-        print(first_move_distr(new_policy, new_env))
+    part5b()
