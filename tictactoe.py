@@ -256,6 +256,8 @@ if __name__ == '__main__':
     import sys
     random.seed(0)
     np.random.seed(0)
+    torch.manual_seed(0)
+
     policy = Policy()
     env = Environment()
 
