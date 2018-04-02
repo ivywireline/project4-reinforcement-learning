@@ -245,17 +245,24 @@ def load_weights(policy, episode):
     policy.load_state_dict(weights)
 
 
-def plot_learning_curve(learning_data, filename="Part5LearningCurve"):
+def plot_learning_curve(
+    learning_data,
+    filename="Part5LearningCurve",
+    plot_label="Average return",
+    xlabel="Episodes",
+    ylabel="Average Return",
+    title="Learning Curves of Average Return vs Episodes",
+):
 
     x_axis = learning_data.keys()
     y_axis = [learning_data[i] for i in x_axis]
 
     fig = plt.figure()
-    plt.plot(x_axis, y_axis, label="Average return")
+    plt.plot(x_axis, y_axis, label=plot_label)
 
-    plt.xlabel("Episodes")
-    plt.ylabel("Average Return")
-    plt.title("Learning Curves of Average Return vs Episodes")
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
     plt.legend(loc="best")
 
     if filename:
@@ -280,7 +287,9 @@ def part5b():
     plot_learning_curve(new_train_summary['performance_data'], "Part5BLearningCurve_80")
 
 
-def part6():
+def part6(policy, env):
+    episodes_lst = [i for i in range(1000, 51000, 1000)]
+    print "episode_lst", episode_lst
     wins, ties, losses = play_games_against_random(policy, env)
 
 
@@ -328,7 +337,7 @@ if __name__ == '__main__':
         # Uncomment this like to see the tuning of the number of hidden units hyperparameter
         # in part 5 b)
         # part5b()
-    else:
+    elif len(sys.argv) == 2:
         # `python tictactoe.py <ep>` to print the first move distribution
         # using weightt checkpoint at episode int(<ep>)
         ep = int(sys.argv[1])
@@ -338,3 +347,5 @@ if __name__ == '__main__':
         # Part5d
         wins, ties, losses = play_games_against_random(policy, env)
         print("Wins: {}%\tTies: {}\tLosses: {}".format(wins, ties, losses))
+    else:
+        part6(policy, env)
