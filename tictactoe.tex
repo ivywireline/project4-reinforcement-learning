@@ -362,5 +362,14 @@ Win!
 
 		\item %7
 		\item %8
+		The major mistake is to prioritize building 3-X chains over blocking the opponent's 3-O chains. 
+		If the random agent manages to build a state where a 3-O chain is possible in the next move, but that cell isn't needed for a 3-X chain, the AI will not block it, and may lose.
+		
+		The agent also prefers to choose the rightmost column of the centre row as its opening move.
+		However, this limits the agent to only being able to pursue two winning states from the initial move: taking the right-most column or taking the centre row.
+		It could try pursuing other winning states, but it would give the opponent an advantage.
+		A better strategy would to either take the centre (allowing for the pursuit of either diagonal, the centre row, or centre column), or one of the corners (allowing for the pursuit of one diagonal, one row, and one column).
+		Furthermore, these strategies allow for forcing a state where the opponent cannot win.
+		
 	\end{enumerate}
 \end{document}
