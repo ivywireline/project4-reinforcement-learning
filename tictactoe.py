@@ -287,10 +287,40 @@ def part5b():
     plot_learning_curve(new_train_summary['performance_data'], "Part5BLearningCurve_80")
 
 
-def part6(policy, env):
-    episodes_lst = [i for i in range(1000, 51000, 1000)]
-    print "episode_lst", episode_lst
-    wins, ties, losses = play_games_against_random(policy, env)
+def part6():
+    # x axis
+    episode_lst = [i for i in range(1000, 51000, 1000)]
+    y_axis = []
+    for i in episode_lst:
+        policy = Policy(hidden_size=80)
+        env = Environment()
+        load_weights(policy, i)
+        y_axis.append(play_games_against_random(policy, env))
+    plot_learning_curve_part6(episode_lst, y_axis)
+
+
+def plot_learning_curve_part6(
+    x_axis,
+    y_axis,
+    filename="Part6LearningCurve",
+):
+
+    y_axis_win_rate = [item[0] for item in y_axis]
+    y_axis_tie_rate = [item[1] for item in y_axis]
+    y_axis_lose_rate = [item[2] for item in y_axis]
+
+    fig = plt.figure()
+    plt.plot(x_axis, y_axis_win_rate, 'r-', label="Win Rate")
+    plt.plot(x_axis, y_axis_tie_rate, 'y-', label="Tie Rate")
+    plt.plot(x_axis, y_axis_lose_rate, label="Lose Rate")
+
+    plt.xlabel("Episodes")
+    plt.ylabel("Win/Lose/Tie Rates")
+    plt.title("Win Rate Over Episodes")
+    plt.legend(loc="best")
+
+    if filename:
+        plt.savefig(filename)
 
 
 def play_games_against_random(policy, env, num_games=100):
@@ -348,4 +378,5 @@ if __name__ == '__main__':
         wins, ties, losses = play_games_against_random(policy, env)
         print("Wins: {}%\tTies: {}\tLosses: {}".format(wins, ties, losses))
     else:
-        part6(policy, env)
+        # `python tictactoe.py -f "part6"`
+        part6()
