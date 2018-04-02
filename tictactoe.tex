@@ -214,7 +214,7 @@ def get_reward(status):
 			\end{figure}
 
 			\item %5b
-			I have tuned the hyper-parameter number of hidden units by the following 3 values: 128, 32, 80. I have used the average return value at the last episode for performance metrics because this value reflects how well the trained model performs when it is being used to play against AI or human players. The learning curves of the 3 tests are shown below.
+			I have tuned the hyper-parameter number of hidden units by the following 3 values: 128, 32, 80. I have used the average return value at the last episode for performance metrics because this value reflects how well the trained model performs when it is being used to play against AI or human players. The learning curves of the 3 tests are shown below. \textbf{Note:} We have commented out the function call \textbf{part5b()} in the main function of the code. To reproduce the graphs and the stats below, please uncomment the line that says \textbf{part5b()}
 
 			\begin{figure}[H]
 				\centering
@@ -245,13 +245,24 @@ def get_reward(status):
 
 			From testing, the algorithm with 80 hidden units has the best performance.
 			\item %5c
-			The policy learned to stop playing invalid moves between 13000 and 14000 episodes. 
-			This was determined by recording the number of invalid moves during training, and aggregating them into 1000-episode chunks. 
+			The policy learned to stop playing invalid moves between 13000 and 14000 episodes.
+			This was determined by recording the number of invalid moves during training, and aggregating them into 1000-episode chunks.
 			When the average number of invalid moves per episode falls below 30\% (30 per 1000), that's when we know the policy has learned to stop playing invalid moves.
 			% TODO include a graph
 			\item %5d
 		\end{enumerate}
 		\item %6
+		The graph that illustrates the win/lose/tie rates is shown below:
+
+		\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\linewidth]{Part6LearningCurve.png}
+				\caption{Win Rate Over the Episodes}
+				\label{fig:part6}
+		\end{figure}
+
+		From the figure above we can see the win rate generally goes up when the number of episodes increases and the lose/tie rate goes down. The result above shows the reward/punishment numbers that we come up with earlier in part 4 are reasonable and effective as the win rate is near $90\%$ at the end.
+
 		\item %7
 		\item %8
 	\end{enumerate}
