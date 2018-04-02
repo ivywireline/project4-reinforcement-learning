@@ -309,6 +309,25 @@ def part5b():
     plot_learning_curve(new_train_summary['performance_data'], "Part5BLearningCurve_80")
 
 
+def part5d(policy, env):
+    wins = 0
+    ties = 0
+    losses = 0
+    print()
+    for i in range(100):
+        # show_games = i % 20 == 0
+        show_games = True
+        if show_games:
+            print("Game #{}:".format(i+1))
+        w, t, l = play_games_against_random(policy, env, num_games=1, show_games=show_games)
+        if show_games:
+            print()
+        wins += w
+        ties += t
+        losses += l
+    return wins, ties, losses
+
+
 def part6():
     # x axis
     episode_lst = [i for i in range(1000, 51000, 1000)]
@@ -345,7 +364,7 @@ def plot_learning_curve_part6(
         plt.savefig(filename)
 
 
-def play_games_against_random(policy, env, num_games=100):
+def play_games_against_random(policy, env, num_games=100, show_games=False):
     wins = 0
     ties = 0
     losses = 0
@@ -359,6 +378,8 @@ def play_games_against_random(policy, env, num_games=100):
             state, status, done = env.play_against_random(action)
             if status == Environment.STATUS_INVALID_MOVE:
                 num_invalid_moves += 1
+            if show_games:
+                env.render()
 
         if status == Environment.STATUS_WIN:
             wins += 1
@@ -368,6 +389,14 @@ def play_games_against_random(policy, env, num_games=100):
             losses += 1
         else:
             print("Something has gone terribly wrong")
+
+        if show_games:
+            if status == Environment.STATUS_WIN:
+                print("Win!")
+            elif status == Environment.STATUS_TIE:
+                print("Tie")
+            elif status == Environment.STATUS_LOSE:
+                print("Loss")
     return wins, ties, losses
 
 
@@ -403,7 +432,7 @@ if __name__ == '__main__':
         print(first_move_distr(policy, env))
 
         # Part5d
-        wins, ties, losses = play_games_against_random(policy, env)
+        wins, ties, losses = part5d(policy, env)
         print("Wins: {}%\tTies: {}\tLosses: {}".format(wins, ties, losses))
     else:
         # `python tictactoe.py -f "part6"`
