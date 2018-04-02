@@ -1,3 +1,4 @@
+% !TeX spellcheck = en_CA
 \documentclass[10pt,letterpaper]{article}
 \usepackage[latin1]{inputenc}
 \usepackage{amsmath}
@@ -250,6 +251,102 @@ def get_reward(status):
 			When the average number of invalid moves per episode falls below 30\% (30 per 1000), that's when we know the policy has learned to stop playing invalid moves.
 			% TODO include a graph
 			\item %5d
+			\begin{align*}
+				\text{Wins}&: 94\\
+				\text{Ties}&: 2\\
+				\text{Losses}&: 4
+			\end{align*}
+			
+			Included are 5 games that were played.
+			\begin{verbatim}
+Game #1:
+...
+..x
+.o.
+====
+...
+x.x
+oo.
+====
+...
+xxx
+oo.
+====
+Win!
+
+Game #21:
+...
+..x
+.o.
+====
+.o.
+x.x
+.o.
+====
+.o.
+xxx
+.o.
+====
+Win!
+
+Game #41:
+...
+..x
+.o.
+====
+...
+x.x
+.oo
+====
+...
+xxx
+.oo
+====
+Win!
+
+Game #61:
+...
+..x
+..o
+====
+o..
+x.x
+..o
+====
+o..
+xxx
+..o
+====
+Win!
+
+Game #81:
+..o
+..x
+...
+====
+.oo
+x.x
+...
+====
+.oo
+xxx
+...
+====
+Win!
+			\end{verbatim}
+			The main strategy of the agent seems to be to prioritize building the longest chain of X's as possible.
+			It will ignore any O's unless the O blocks its way.
+			In that case, it will place an X in a place where a 3-X chain is possible.
+			It will even ignore a 2-O chain if extending an X chain won't block it.
+			This is the main way it loses the game.
+			The agent probably learned this behaviour because it is relatively unlikely that the random agent will play the cell that blocks the AI from building a 3-X chain.
+			Also, the random agent doesn't actively attack the AI's X-chains, so it has no reason to counter that.
+			
+			The agent also prefers to put its starting move in the right column of the centre row, and then either plays the left column of the centre row if not blocked, otherwise it plays the bottom-right cell.
+			In essence, it avoids taking the centre cell.
+			This is strange, since conventional wisdom would recommend either controlling the centre or a corner, to allow for setting up a guaranteed win state.
+			The agent probably chose this state because it chose this cell initially, and since a greedy strategy of building 3-X chains seemed to be sufficient to win, it had no reason to learn any other initial moves.
+			Also, since its lookahead isn't the entire game tree, it cannot determine whether an endgame state is a guaranteed win state if the board is relatively full.
 		\end{enumerate}
 		\item %6
 		The graph that illustrates the win/lose/tie rates is shown below:
