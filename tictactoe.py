@@ -280,6 +280,9 @@ def part5b():
     plot_learning_curve(new_train_summary['performance_data'], "Part5BLearningCurve_80")
 
 
+def part6():
+    wins, ties, losses = play_games_against_random(policy, env)
+
 
 def play_games_against_random(policy, env, num_games=100):
     wins = 0
@@ -313,7 +316,7 @@ if __name__ == '__main__':
     np.random.seed(0)
     torch.manual_seed(0)
 
-    policy = Policy()
+    policy = Policy(hidden_size=80)
     env = Environment()
 
     if len(sys.argv) == 1:
