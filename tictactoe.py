@@ -269,6 +269,28 @@ def plot_learning_curve(
         plt.savefig(filename)
 
 
+def plot_invalid_move_performance(invalid_move_list, filename="Part5cLearningCurve"):
+    labels = range(1000, 51000, 5000)
+    xs = np.arange(len(labels))
+    ys = invalid_move_list[::5]
+
+    width = 1
+
+    fig = plt.figure()
+    #plt.plot(x_axis, y_axis, label="Num of Invalid Moves")
+    plt.bar(xs, ys, width, align='center', label="Num of Invalid Moves")
+    plt.xticks(xs, labels)
+    plt.yticks(ys)
+
+    plt.xlabel("Episodes")
+    plt.ylabel("Number of Invalid Moves")
+    plt.title("Number of Invalid Moves per 5000 Episodes")
+    plt.legend(loc="best")
+
+    if filename:
+        plt.savefig(filename)
+
+
 def part5b():
     new_policy = Policy(hidden_size=128)
     new_env = Environment()
@@ -363,6 +385,12 @@ if __name__ == '__main__':
         train_summary = train(policy, env, gamma=0.9)
         plot_learning_curve(train_summary['performance_data'])
         invalid_moves_per_1k = [sum(train_summary['invalid_moves_episode'][i * 1000:(i + 1000) * 1000]) for i in range(int(50000 / 1000))]
+
+        for i, val in enumerate(invalid_moves_per_1k):
+            print("{}\t{}".format((i+1)*1000, val / 1000))
+
+        plot_invalid_move_performance(invalid_moves_per_1k)
+
 
         # Uncomment this like to see the tuning of the number of hidden units hyperparameter
         # in part 5 b)

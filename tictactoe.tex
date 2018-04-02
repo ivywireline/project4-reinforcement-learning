@@ -245,6 +245,10 @@ def get_reward(status):
 
 			From testing, the algorithm with 80 hidden units has the best performance.
 			\item %5c
+			The policy learned to stop playing invalid moves between 13000 and 14000 episodes. 
+			This was determined by recording the number of invalid moves during training, and aggregating them into 1000-episode chunks. 
+			When the average number of invalid moves per episode falls below 30\% (30 per 1000), that's when we know the policy has learned to stop playing invalid moves.
+			% TODO include a graph
 			\item %5d
 		\end{enumerate}
 		\item %6
