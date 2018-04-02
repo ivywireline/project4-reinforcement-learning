@@ -321,6 +321,22 @@ def part6():
     plot_learning_curve_part6(episode_lst, y_axis)
 
 
+def part7(policy, env):
+    ep = 50000
+    load_weights(policy, ep)
+    print (first_move_distr(policy, env)[0][0])
+
+    # Explore how first move distribution varies throughout training
+    # x axis
+    episode_lst = [i for i in range(1000, 51000, 1000)]
+    y_axis = []
+    for i in episode_lst:
+        load_weights(policy, i)
+        y_axis.append(first_move_distr(policy, env)[0])
+    plot_learning_curve_part7(episode_lst, y_axis)
+
+
+
 def plot_learning_curve_part6(
     x_axis,
     y_axis,
@@ -406,5 +422,6 @@ if __name__ == '__main__':
         wins, ties, losses = play_games_against_random(policy, env)
         print("Wins: {}%\tTies: {}\tLosses: {}".format(wins, ties, losses))
     else:
-        # `python tictactoe.py -f "part6"`
+        # `python tictactoe.py -f "part6 and part7"`
         part6()
+        part7(policy, env)
