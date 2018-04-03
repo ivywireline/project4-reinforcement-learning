@@ -256,7 +256,7 @@ def get_reward(status):
 				\text{Ties}&: 2\\
 				\text{Losses}&: 4
 			\end{align*}
-			
+
 			Included are 5 games that were played.
 			\begin{verbatim}
 Game #1:
@@ -341,7 +341,7 @@ Win!
 			This is the main way it loses the game.
 			The agent probably learned this behaviour because it is relatively unlikely that the random agent will play the cell that blocks the AI from building a 3-X chain.
 			Also, the random agent doesn't actively attack the AI's X-chains, so it has no reason to counter that.
-			
+
 			The agent also prefers to put its starting move in the right column of the centre row, and then either plays the left column of the centre row if not blocked, otherwise it plays the bottom-right cell.
 			In essence, it avoids taking the centre cell.
 			This is strange, since conventional wisdom would recommend either controlling the centre or a corner, to allow for setting up a guaranteed win state.
@@ -361,15 +361,34 @@ Win!
 		From the figure above we can see the win rate generally goes up when the number of episodes increases and the lose/tie rate goes down. The result above shows the reward/punishment numbers that we come up with earlier in part 4 are reasonable and effective as the win rate is near $90\%$ at the end.
 
 		\item %7
+		For the final trained model, the first move distribution is the following:
+Column 0: 2.7633e-12 \newline
+Column 1: 4.8411e-09 \newline
+Column 2: 3.5970e-09 \newline
+Column 3: 1.7473e-02 \newline
+Column 4: 2.2157e-09 \newline
+Column 5: 9.8252e-01 \newline
+Column 6: 8.8324e-09 \newline
+Column 7: 1.4350e-08 \newline
+Column 8: 3.6817e-06 \newline
+
+From the data shown above, our final trained model would be most likely to place a move at column 5 as its first move. From a human standpoint, this is indeed quite odd for the opponent to make its first move there as it is quite easy and intuitive to tie the AI model or even outright win. However, since the model is trained against a player that makes random moves, it might be reasonable since it will just try to make the first three connected moves over the random opponent.
+		\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\linewidth]{Part7LearningCurve.png}
+				\caption{First Move Distribution over Episodes}
+				\label{fig:part6}
+		\end{figure}
+		As the above graph shows, the probabilities of making the first move at each column fluctuates a lot. We can conclude that it may be immaterial of what is the first move that the model makes in terms of winning the game.
 		\item %8
-		The major mistake is to prioritize building 3-X chains over blocking the opponent's 3-O chains. 
+		The major mistake is to prioritize building 3-X chains over blocking the opponent's 3-O chains.
 		If the random agent manages to build a state where a 3-O chain is possible in the next move, but that cell isn't needed for a 3-X chain, the AI will not block it, and may lose.
-		
+
 		The agent also prefers to choose the rightmost column of the centre row as its opening move.
 		However, this limits the agent to only being able to pursue two winning states from the initial move: taking the right-most column or taking the centre row.
 		It could try pursuing other winning states, but it would give the opponent an advantage.
 		A better strategy would to either take the centre (allowing for the pursuit of either diagonal, the centre row, or centre column), or one of the corners (allowing for the pursuit of one diagonal, one row, and one column).
 		Furthermore, these strategies allow for forcing a state where the opponent cannot win.
-		
+
 	\end{enumerate}
 \end{document}

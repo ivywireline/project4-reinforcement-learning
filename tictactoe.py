@@ -380,6 +380,42 @@ def plot_learning_curve_part6(
         plt.savefig(filename)
 
 
+def plot_learning_curve_part7(
+    x_axis,
+    y_axis,
+    filename="Part7LearningCurve",
+):
+
+    y_axis_column0 = [item[0] for item in y_axis]
+    y_axis_column1 = [item[1] for item in y_axis]
+    y_axis_column2 = [item[2] for item in y_axis]
+    y_axis_column3 = [item[3] for item in y_axis]
+    y_axis_column4 = [item[4] for item in y_axis]
+    y_axis_column5 = [item[5] for item in y_axis]
+    y_axis_column6 = [item[6] for item in y_axis]
+    y_axis_column7 = [item[7] for item in y_axis]
+    y_axis_column8 = [item[8] for item in y_axis]
+
+    fig = plt.figure()
+    plt.plot(x_axis, y_axis_column0, label="Column 0")
+    plt.plot(x_axis, y_axis_column1, label="Column 1")
+    plt.plot(x_axis, y_axis_column2, label="Column 2")
+    plt.plot(x_axis, y_axis_column3, label="Column 3")
+    plt.plot(x_axis, y_axis_column4, label="Column 4")
+    plt.plot(x_axis, y_axis_column5, label="Column 5")
+    plt.plot(x_axis, y_axis_column6, label="Column 6")
+    plt.plot(x_axis, y_axis_column7, label="Column 7")
+    plt.plot(x_axis, y_axis_column8, label="Column 8")
+
+    plt.xlabel("Episodes")
+    plt.ylabel("Probability of Making the First Move")
+    plt.title("First Move Distribution over Episodes")
+    plt.legend(loc="best")
+
+    if filename:
+        plt.savefig(filename)
+
+
 def play_games_against_random(policy, env, num_games=100, show_games=False):
     wins = 0
     ties = 0
